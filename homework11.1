@@ -1,0 +1,51 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string word = "хілель";
+        int maxAttempts = 6; 
+        char[] guessedWord = new string('_', word.Length).ToCharArray(); 
+        int incorrectAttempts = 0;
+
+        Console.WriteLine("Ласкаво просимо до гри 'Шибениця'!");
+        Console.WriteLine("Загадане слово: " + new string(guessedWord));
+
+        while (incorrectAttempts < maxAttempts)
+        {
+            Console.WriteLine($"\nНевірних спроб: {incorrectAttempts}/{maxAttempts}");
+            Console.WriteLine("Загадане слово: " + new string(guessedWord));
+            Console.Write("Введіть літеру: ");
+            char guessedLetter = char.ToLower(Console.ReadKey().KeyChar); 
+            Console.WriteLine();
+
+            bool letterFound = false;
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (word[i] == guessedLetter)
+                {
+                    guessedWord[i] = guessedLetter;
+                    letterFound = true;
+                }
+            }
+
+            if (!letterFound)
+            {
+                incorrectAttempts++;
+                Console.WriteLine($"Невірно! Ви втратили спробу. Спробуйте ще раз.");
+            }
+
+            if (new string(guessedWord) == word)
+            {
+                Console.WriteLine($"Вітаємо! Ви вгадали слово: {word}");
+                break;
+            }
+        }
+
+        if (incorrectAttempts == maxAttempts)
+        {
+            Console.WriteLine($"На жаль, ви програли. Загадане слово було: {word}");
+        }
+    }
+}
